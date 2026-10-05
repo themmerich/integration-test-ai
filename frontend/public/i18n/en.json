@@ -20,5 +20,33 @@
     "empty": "No notes yet. Add your first one above.",
     "loadError": "Could not load notes.",
     "required": "This field is required."
+  },
+  "loans": {
+    "title": "Loans",
+    "empty": "No loans found.",
+    "columns": {
+      "loanNumber": "Loan no.",
+      "borrower": "Borrower",
+      "type": "Type",
+      "amount": "Amount",
+      "outstandingBalance": "Outstanding",
+      "interestRate": "Interest rate",
+      "termMonths": "Term (months)",
+      "monthlyPayment": "Monthly payment",
+      "disbursementDate": "Disbursed on",
+      "status": "Status"
+    },
+    "types": {
+      "mortgage": "Mortgage",
+      "consumer": "Consumer loan",
+      "car": "Car loan",
+      "business": "Business loan"
+    },
+    "statuses": {
+      "requested": "Requested",
+      "active": "Active",
+      "overdue": "Overdue",
+      "repaid": "Repaid"
+    }
   }
 }

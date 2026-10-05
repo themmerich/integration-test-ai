@@ -47,6 +47,12 @@
       "active": "Active",
       "overdue": "Overdue",
       "repaid": "Repaid"
+    },
+    "toolbar": {
+      "columns": "Columns",
+      "selectedColumns": "{0} columns",
+      "search": "Search loans",
+      "exportCsv": "CSV"
     }
   }
 }

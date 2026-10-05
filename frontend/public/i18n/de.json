@@ -20,5 +20,33 @@
     "empty": "Noch keine Notizen. Füge oben deine erste hinzu.",
     "loadError": "Notizen konnten nicht geladen werden.",
     "required": "Dieses Feld ist erforderlich."
+  },
+  "loans": {
+    "title": "Kredite",
+    "empty": "Keine Kredite gefunden.",
+    "columns": {
+      "loanNumber": "Kredit-Nr.",
+      "borrower": "Kreditnehmer",
+      "type": "Kreditart",
+      "amount": "Kreditbetrag",
+      "outstandingBalance": "Restschuld",
+      "interestRate": "Zinssatz",
+      "termMonths": "Laufzeit (Monate)",
+      "monthlyPayment": "Monatsrate",
+      "disbursementDate": "Ausgezahlt am",
+      "status": "Status"
+    },
+    "types": {
+      "mortgage": "Baufinanzierung",
+      "consumer": "Ratenkredit",
+      "car": "Autokredit",
+      "business": "Firmenkredit"
+    },
+    "statuses": {
+      "requested": "Beantragt",
+      "active": "Aktiv",
+      "overdue": "Im Verzug",
+      "repaid": "Getilgt"
+    }
   }
 }

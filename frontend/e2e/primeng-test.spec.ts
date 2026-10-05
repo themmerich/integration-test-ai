@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test.describe('PrimeNgTest e2e', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/demo');
   });
 
   // Self-test: the route loaded and the component rendered its card.

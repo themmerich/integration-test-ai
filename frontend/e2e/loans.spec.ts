@@ -52,6 +52,8 @@ test.describe('LoansPage e2e', () => {
 
   test('exports the filtered rows as CSV', async ({ page }) => {
     await page.getByRole('searchbox', { name: 'Search loans' }).fill('mortgage');
+    // The table applies the global filter after its filterDelay; export only once it is in effect.
+    await expect(page.locator('tbody tr')).toHaveCount(3);
 
     const downloadPromise = page.waitForEvent('download');
     await page.getByRole('button', { name: 'CSV' }).click();

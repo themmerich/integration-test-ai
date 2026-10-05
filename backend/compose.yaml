@@ -1,0 +1,14 @@
+# Explicit project name; otherwise Compose derives it from the folder ("backend")
+# and collides with other repos that use the same layout.
+name: integration-test-ai
+
+services:
+  postgres:
+    # Major version pinned; keep in sync with TestcontainersConfiguration.
+    image: 'postgres:18'
+    environment:
+      - 'POSTGRES_DB=integrationtest'
+      - 'POSTGRES_PASSWORD=secret'
+      - 'POSTGRES_USER=integrationtest'
+    ports:
+      - '5432'

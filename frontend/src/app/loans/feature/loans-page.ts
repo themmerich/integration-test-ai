@@ -86,12 +86,15 @@ import { LoanFilterForm } from './loan-filter-form';
               </ng-template>
             </p-toolbar>
 
+            <!-- [totalRecords]: PrimeNG 22 RC only derives it from [value] on the first load, so the paginator kept the
+                 unfiltered page count after a form search. An active global filter still overrides it with its own count. -->
             <p-table
               #loanTable
               dataKey="id"
               exportFilename="loans"
               columnResizeMode="expand"
               [value]="rows()"
+              [totalRecords]="rows().length"
               [columns]="visibleColumns()"
               [globalFilterFields]="globalFilterFields"
               [resizableColumns]="true"

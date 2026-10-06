@@ -14,11 +14,4 @@ export const routes: Routes = [
     path: 'demo',
     loadComponent: () => import('./demo/feature/primeng-test/primeng-test').then((m) => m.PrimeNgTest),
   },
-  // Vertical slice: notes CRUD backed by the Spring Boot `/api/notes` API
-  // (dev-server proxy in proxy.conf.json). Exercises the Sheriff categories
-  // domain / data-access / ui / feature / shell in the `notes` scope.
-  {
-    path: 'notes',
-    loadChildren: () => import('./notes/shell/notes-routes').then((m) => m.notesRoutes),
-  },
 ];

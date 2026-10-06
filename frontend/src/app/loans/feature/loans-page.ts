@@ -4,6 +4,7 @@ import { FormField, form } from '@angular/forms/signals';
 import { TranslocoDirective, translateObjectSignal } from '@jsverse/transloco';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { FieldsetModule } from 'primeng/fieldset';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -13,7 +14,9 @@ import { TagModule } from 'primeng/tag';
 import { ToolbarModule } from 'primeng/toolbar';
 
 import { sampleLoans } from '../data-access/sample-loans';
+import { LoanFilter, emptyLoanFilter, matchesLoanFilter } from '../domain/loan-filter';
 import { LoanColumnKey, LoanTranslations, loanColumns, toLoanRow } from './loan-columns';
+import { LoanFilterForm } from './loan-filter-form';
 
 @Component({
   selector: 'app-loans-page',
@@ -25,6 +28,7 @@ import { LoanColumnKey, LoanTranslations, loanColumns, toLoanRow } from './loan-
     TranslocoDirective,
     ButtonModule,
     CardModule,
+    FieldsetModule,
     IconFieldModule,
     InputIconModule,
     InputTextModule,
@@ -32,12 +36,17 @@ import { LoanColumnKey, LoanTranslations, loanColumns, toLoanRow } from './loan-
     TableModule,
     TagModule,
     ToolbarModule,
+    LoanFilterForm,
   ],
   template: `
     <main class="mx-auto flex min-h-dvh max-w-screen-2xl flex-col gap-6 p-6">
       <ng-container *transloco="let t">
         <p-card [header]="t('loans.title')">
           <div class="flex flex-col gap-4">
+            <p-fieldset [legend]="t('loans.filter.title')" [toggleable]="true">
+              <app-loan-filter-form (filterChange)="onFilterChange($event)" />
+            </p-fieldset>
+
             <p-toolbar>
               <ng-template #start>
                 <p-multiselect
@@ -88,6 +97,7 @@ import { LoanColumnKey, LoanTranslations, loanColumns, toLoanRow } from './loan-
               [resizableColumns]="true"
               [paginator]="true"
               [rows]="10"
+              [(first)]="first"
               [rowHover]="true"
               [stripedRows]="true"
               [scrollable]="true"
@@ -152,7 +162,13 @@ export class LoansPage {
 
   protected readonly columnForm = form(signal({ visibleKeys: loanColumns.map((column) => column.key) }));
 
-  protected readonly rows = computed(() => sampleLoans.map((loan) => toLoanRow(loan, this.loanTranslations())));
+  protected readonly filter = signal(emptyLoanFilter);
+  /** Index of the first row on the current page; reset on every search so a narrower result never lands on an empty page. */
+  protected readonly first = signal(0);
+
+  protected readonly rows = computed(() =>
+    sampleLoans.filter((loan) => matchesLoanFilter(loan, this.filter())).map((loan) => toLoanRow(loan, this.loanTranslations())),
+  );
 
   /** All columns with translated headers; `header` and `field` are what PrimeNG's CSV export reads. */
   protected readonly columnOptions = computed(() =>
@@ -164,4 +180,9 @@ export class LoansPage {
     const visibleKeys = new Set<LoanColumnKey>(this.columnForm.visibleKeys().value());
     return this.columnOptions().filter((column) => visibleKeys.has(column.key));
   });
+
+  protected onFilterChange(filter: LoanFilter): void {
+    this.filter.set(filter);
+    this.first.set(0);
+  }
 }

@@ -41,6 +41,18 @@
       "selectedColumns": "{0} columns",
       "search": "Search loans",
       "exportCsv": "CSV"
+    },
+    "filter": {
+      "title": "Refine results",
+      "borrower": "Borrower",
+      "types": "Loan type",
+      "statuses": "Status",
+      "disbursementPeriod": "Disbursement period",
+      "minAmount": "Amount from",
+      "maxAmount": "Amount to",
+      "any": "Any",
+      "search": "Search",
+      "reset": "Reset"
     }
   }
 }

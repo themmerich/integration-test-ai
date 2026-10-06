@@ -10,7 +10,7 @@ const en = {
     mainNavigation: 'Main navigation',
     toggleMenu: 'Toggle menu',
     user: 'Demo user',
-    nav: { lending: 'Lending', loanOverview: 'Loan overview', development: 'Development', primengDemo: 'PrimeNG demo' },
+    nav: { lending: 'Lending', loanOverview: 'Loan overview' },
   },
 };
 
@@ -40,11 +40,7 @@ describe('AppLayout', () => {
     const links = Array.from(element.querySelectorAll('nav a'));
 
     expect(element.textContent).toContain('Lending');
-    expect(element.textContent).toContain('Development');
-    expect(links.map((link) => [link.textContent?.trim(), link.getAttribute('href')])).toEqual([
-      ['Loan overview', '/'],
-      ['PrimeNG demo', '/demo'],
-    ]);
+    expect(links.map((link) => [link.textContent?.trim(), link.getAttribute('href')])).toEqual([['Loan overview', '/']]);
   });
 
   it('renders the page content area with a router outlet', () => {

@@ -54,5 +54,18 @@
       "search": "Search",
       "reset": "Reset"
     }
+  },
+  "layout": {
+    "appName": "Integration Test AI",
+    "sidebar": "Sidebar",
+    "mainNavigation": "Main navigation",
+    "toggleMenu": "Toggle menu",
+    "user": "Demo user",
+    "nav": {
+      "lending": "Lending",
+      "loanOverview": "Loan overview",
+      "development": "Development",
+      "primengDemo": "PrimeNG demo"
+    }
   }
 }

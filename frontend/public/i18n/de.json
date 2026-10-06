@@ -54,5 +54,18 @@
       "search": "Suchen",
       "reset": "Zurücksetzen"
     }
+  },
+  "layout": {
+    "appName": "Integration Test AI",
+    "sidebar": "Seitenleiste",
+    "mainNavigation": "Hauptnavigation",
+    "toggleMenu": "Menü ein-/ausblenden",
+    "user": "Demo-Nutzer",
+    "nav": {
+      "lending": "Kreditgeschäft",
+      "loanOverview": "Kreditübersicht",
+      "development": "Entwicklung",
+      "primengDemo": "PrimeNG-Demo"
+    }
   }
 }

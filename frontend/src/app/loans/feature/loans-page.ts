@@ -39,7 +39,7 @@ import { LoanFilterForm } from './loan-filter-form';
     LoanFilterForm,
   ],
   template: `
-    <main class="mx-auto flex min-h-dvh max-w-screen-2xl flex-col gap-6 p-6">
+    <section class="mx-auto flex w-full max-w-screen-2xl flex-col gap-6">
       <ng-container *transloco="let t">
         <p-card [header]="t('loans.title')">
           <div class="flex flex-col gap-4">
@@ -154,7 +154,7 @@ import { LoanFilterForm } from './loan-filter-form';
           </div>
         </p-card>
       </ng-container>
-    </main>
+    </section>
   `,
 })
 export class LoansPage {

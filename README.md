@@ -77,21 +77,11 @@ node scripts/verify.mjs
   `src/app/<scope>/<type>` with `feature`/`ui`/`data-access`/`domain`/`util`/`shell` categories and
   strict dependency arrows — on every lint run.
 
-### A full-stack vertical slice
-
-- The **notes** feature is one thin slice through the whole stack: a Flyway migration → JPA entity →
-  service → validated REST controller (`/api/notes`, full CRUD) on the backend, consumed on the
-  frontend by an Angular `httpResource()` store through a dev-server proxy
-  ([`frontend/proxy.conf.json`](frontend/proxy.conf.json)).
-- It gives the Sheriff categories real code: the `notes` scope populates `domain`, `data-access`,
-  `ui`, `feature`, and `shell` (route `/notes`). Reads go through `httpResource()`, writes through
-  `HttpClient`, and the create form uses Signal Forms.
-
 ### Testing on both levels
 
 - **Frontend unit**: Vitest through Angular's `unit-test` builder (`pnpm test`), zoneless, jsdom.
-- **Backend integration**: JUnit 5 against a real PostgreSQL via Testcontainers — a `@DataJpaTest`
-  repository slice and a full `@SpringBootTest` + MockMvc CRUD test.
+- **Backend integration**: JUnit 5 against a real PostgreSQL via Testcontainers — currently a
+  `@SpringBootTest` that boots the full context.
 - **E2E**: Playwright (`pnpm e2e`) with a `webServer` block that starts or reuses the dev server;
   specs follow a role/label/text selector ladder with web-first assertions.
 

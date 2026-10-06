@@ -13,7 +13,7 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService],
   template: `
     <p-toast />
-    <main class="flex min-h-dvh items-center justify-center p-6">
+    <section class="flex flex-auto items-center justify-center">
       <ng-container *transloco="let t">
         <p-card [header]="t('title')" class="w-full max-w-xl">
           <div class="flex flex-col gap-6">
@@ -47,7 +47,7 @@ import { MessageService } from 'primeng/api';
           </div>
         </p-card>
       </ng-container>
-    </main>
+    </section>
   `,
 })
 export class PrimeNgTest {

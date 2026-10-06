@@ -42,7 +42,7 @@ test.describe('PrimeNgTest e2e', () => {
   });
 
   test('switches the language to German', async ({ page }) => {
-    await page.getByRole('button', { name: 'DE' }).click();
+    await page.getByRole('button', { name: 'DE', exact: true }).click();
 
     await expect(page.getByText('PrimeNG + Transloco Test', { exact: true })).toBeVisible();
     await expect(page.getByLabel('Dein Name')).toBeVisible();

@@ -120,4 +120,39 @@ test.describe('Loan filter form e2e', () => {
     await expect(page.getByLabel('Borrower', { exact: true })).toHaveValue('');
     await expect(page.locator('tbody tr')).toHaveCount(10);
   });
+
+  test('shows only as many pages as there are results', async ({ page }) => {
+    await expect(page.getByRole('button', { name: '2', exact: true })).toBeVisible();
+
+    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.locator('tbody tr')).toHaveCount(1);
+    await expect(page.getByRole('button', { name: '1', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: '2', exact: true })).toBeHidden();
+  });
+
+  test('returns to the first page when a search narrows the result', async ({ page }) => {
+    await page.getByRole('button', { name: '2', exact: true }).click();
+    await expect(page.locator('tbody tr')).toHaveCount(2);
+
+    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.getByRole('cell', { name: 'Markus Weber' })).toBeVisible();
+  });
+
+  test('shows an empty message when the form finds nothing', async ({ page }) => {
+    await page.getByLabel('Borrower', { exact: true }).fill('nobody');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.getByRole('cell', { name: 'No loans found.' })).toBeVisible();
+    await expect(page.getByRole('button', { name: '1', exact: true })).toBeHidden();
+  });
+
+  test('shows an empty message when the global search finds nothing', async ({ page }) => {
+    await page.getByRole('searchbox', { name: 'Search loans' }).fill('nobody');
+
+    await expect(page.getByRole('cell', { name: 'No loans found.' })).toBeVisible();
+  });
 });

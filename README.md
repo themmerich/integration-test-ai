@@ -4,8 +4,8 @@ A reference setup for a **Spring Boot + Angular monorepo**, built to demonstrate
 tooling, conventions, and AI-agent guidance so that both halves of a full-stack project stay
 consistent, verified, and maintainable — from the first commit on.
 
-The application itself is intentionally minimal (a single demo route); the value of this repository
-is the setup around it.
+The application itself is intentionally minimal (a loan overview table on static sample data inside
+an app shell); the value of this repository is the setup around it.
 
 ## Contents
 

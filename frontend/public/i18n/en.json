@@ -1,14 +1,4 @@
 {
-  "title": "PrimeNG + Transloco Smoke Test",
-  "description": "If this text switches language and the button shows a toast, both PrimeNG and Transloco are wired up correctly.",
-  "nameLabel": "Your name",
-  "namePlaceholder": "Type here…",
-  "greeting": "Hello, {{name}} 👋",
-  "stranger": "stranger",
-  "showToast": "Show toast",
-  "language": "Language",
-  "toastSummary": "It works!",
-  "toastDetail": "Hello {{name}} — clicked {{count}} time(s).",
   "loans": {
     "title": "Loans",
     "empty": "No loans found.",
@@ -63,9 +53,7 @@
     "user": "Demo user",
     "nav": {
       "lending": "Lending",
-      "loanOverview": "Loan overview",
-      "development": "Development",
-      "primengDemo": "PrimeNG demo"
+      "loanOverview": "Loan overview"
     }
   }
 }

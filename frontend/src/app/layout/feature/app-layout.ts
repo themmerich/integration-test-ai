@@ -33,9 +33,5 @@ export class AppLayout {
       labelKey: 'lending',
       items: [{ labelKey: 'loanOverview', icon: 'pi pi-wallet', route: '/', isExact: true }],
     },
-    {
-      labelKey: 'development',
-      items: [{ labelKey: 'primengDemo', icon: 'pi pi-palette', route: '/demo', isExact: false }],
-    },
   ];
 }

@@ -1,14 +1,4 @@
 {
-  "title": "PrimeNG + Transloco Test",
-  "description": "Wenn dieser Text die Sprache wechselt und der Button einen Toast zeigt, sind PrimeNG und Transloco korrekt eingebunden.",
-  "nameLabel": "Dein Name",
-  "namePlaceholder": "Hier tippen…",
-  "greeting": "Hallo, {{name}} 👋",
-  "stranger": "Unbekannte:r",
-  "showToast": "Toast anzeigen",
-  "language": "Sprache",
-  "toastSummary": "Es funktioniert!",
-  "toastDetail": "Hallo {{name}} — {{count}}× geklickt.",
   "loans": {
     "title": "Kredite",
     "empty": "Keine Kredite gefunden.",
@@ -63,9 +53,7 @@
     "user": "Demo-Nutzer",
     "nav": {
       "lending": "Kreditgeschäft",
-      "loanOverview": "Kreditübersicht",
-      "development": "Entwicklung",
-      "primengDemo": "PrimeNG-Demo"
+      "loanOverview": "Kreditübersicht"
     }
   }
 }

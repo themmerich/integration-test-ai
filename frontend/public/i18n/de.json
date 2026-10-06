@@ -41,6 +41,18 @@
       "selectedColumns": "{0} Spalten",
       "search": "Kredite durchsuchen",
       "exportCsv": "CSV"
+    },
+    "filter": {
+      "title": "Suche einschränken",
+      "borrower": "Kreditnehmer",
+      "types": "Kreditart",
+      "statuses": "Status",
+      "disbursementPeriod": "Auszahlungszeitraum",
+      "minAmount": "Kreditbetrag von",
+      "maxAmount": "Kreditbetrag bis",
+      "any": "Alle",
+      "search": "Suchen",
+      "reset": "Zurücksetzen"
     }
   }
 }

@@ -71,3 +71,53 @@ test.describe('LoansPage e2e', () => {
     expect(lines[1]).toContain('"Mortgage"');
   });
 });
+
+test.describe('Loan filter form e2e', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
+  test('restricts the table by borrower and status', async ({ page }) => {
+    await page.getByLabel('Borrower', { exact: true }).fill('a');
+    // The multiselect's combobox input is visually hidden; open it the keyboard way.
+    await page.getByRole('combobox', { name: 'Status' }).focus();
+    await page.keyboard.press('ArrowDown');
+    await page.getByRole('option', { name: 'Active' }).click();
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.locator('tbody tr')).toHaveCount(6);
+    await expect(page.getByRole('cell', { name: 'Mia Neumann' })).toBeVisible();
+    await expect(page.getByRole('cell', { name: 'Overdue' })).toBeHidden();
+  });
+
+  test('restricts the table by amount range', async ({ page }) => {
+    await page.getByLabel('Amount from').fill('100000');
+    await page.getByLabel('Amount to').fill('300000');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.locator('tbody tr')).toHaveCount(3);
+    await expect(page.getByRole('cell', { name: 'Elena Koch' })).toBeVisible();
+  });
+
+  test('restricts the table by disbursement period', async ({ page }) => {
+    // The date picker parses keystrokes, so type the range instead of fill()ing it in one go.
+    await page.getByLabel('Disbursement period').pressSequentially('01/01/2024 - 06/30/2024');
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: 'Search' }).click();
+
+    await expect(page.locator('tbody tr')).toHaveCount(4);
+    await expect(page.getByRole('cell', { name: 'Laura Fischer' })).toBeHidden();
+  });
+
+  test('resets the form and shows all loans again', async ({ page }) => {
+    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Search' }).click();
+    await expect(page.locator('tbody tr')).toHaveCount(1);
+
+    await page.getByRole('button', { name: 'Reset' }).click();
+
+    await expect(page.getByLabel('Borrower', { exact: true })).toHaveValue('');
+    await expect(page.locator('tbody tr')).toHaveCount(10);
+  });
+});

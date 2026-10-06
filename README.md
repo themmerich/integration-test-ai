@@ -49,7 +49,10 @@ pnpm install
 pnpm start        # dev server on http://localhost:4200/
 ```
 
-Backend:
+The frontend runs on its own: the loan table uses static sample data, so no backend is needed for
+now. The dev-server proxy only forwards `/api` requests to `localhost:8080`.
+
+Backend (optional for now):
 
 ```bash
 cd backend

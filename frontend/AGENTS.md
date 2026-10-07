@@ -10,16 +10,17 @@ Angular 22 (standalone components + signals, zoneless), pnpm, PrimeNG, Transloco
 
 ## Commands (run inside `frontend/`)
 
-| Command                             | Purpose                                                            |
-| ----------------------------------- | ------------------------------------------------------------------ |
-| `pnpm start`                        | Dev server                                                         |
-| `pnpm start:local`                  | Dev server with the local PrimeNG license (`environment.local.ts`) |
-| `pnpm build`                        | Production build                                                   |
-| `pnpm test`                         | Unit tests (Vitest), single run                                    |
-| `pnpm test:watch`                   | Unit tests in watch mode (re-runs on file changes)                 |
-| `pnpm e2e`                          | E2E tests (Playwright; dev server locally, production build in CI) |
-| `pnpm lint`                         | ESLint                                                             |
-| `pnpm format` / `pnpm format:check` | Prettier                                                           |
+| Command                             | Purpose                                                                                                        |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| `pnpm start`                        | Dev server                                                                                                     |
+| `pnpm start:local`                  | Dev server with the local PrimeNG license (`environment.local.ts`)                                             |
+| `pnpm build`                        | Production build                                                                                               |
+| `pnpm test`                         | Unit tests (Vitest), single run                                                                                |
+| `pnpm test:watch`                   | Unit tests in watch mode (re-runs on file changes)                                                             |
+| `pnpm test:coverage`                | Unit tests with coverage (HTML in `coverage/frontend/`); fails below the thresholds in `vitest-base.config.ts` |
+| `pnpm e2e`                          | E2E tests (Playwright; dev server locally, production build in CI)                                             |
+| `pnpm lint`                         | ESLint                                                                                                         |
+| `pnpm format` / `pnpm format:check` | Prettier                                                                                                       |
 
 ## Project conventions
 

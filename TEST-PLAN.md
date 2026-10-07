@@ -76,6 +76,7 @@ Alle Befehle laufen in `frontend/`, außer `verify.mjs`.
 ```bash
 pnpm test                 # Unit- und Integrationstests (Vitest), einmaliger Lauf
 pnpm test:watch           # dasselbe im Watch-Modus, läuft bei Dateiänderungen erneut
+pnpm test:coverage        # einmaliger Lauf mit Coverage, HTML-Bericht in coverage/frontend/index.html
 pnpm e2e                  # E2E gegen Dev-Server (startet ihn oder nutzt einen laufenden auf :4200)
 pnpm build                # Production-Build, Voraussetzung für den CI-Modus
 CI=1 pnpm e2e             # E2E wie in der CI: gegen dist/, Port 4200 muss frei sein
@@ -88,7 +89,9 @@ node scripts/verify.mjs   # aus dem Repo-Root: Lint, Format, Unit, Build, Backen
 ### CI
 
 Der Workflow `.github/workflows/ci.yml` läuft bei jedem Pull Request. Job „Frontend“: Lint, Format,
-Vitest, Build, Playwright gegen den Production-Build. Job „Backend“: Gradle-Build mit Testcontainers.
+Vitest mit Coverage, Build, Playwright gegen den Production-Build. Die Coverage-Werte stehen in der
+Zusammenfassung des CI-Laufs, der HTML-Bericht hängt als Artefakt `coverage-report` daran. Fällt die
+Coverage für Zeilen oder Zweige unter 80 % (`frontend/vitest-base.config.ts`), schlägt der Job fehl. Job „Backend“: Gradle-Build mit Testcontainers.
 Beide Jobs sind Pflicht-Checks für `main`. Playwright wiederholt fehlgeschlagene Tests in der CI bis zu
 zweimal und zeichnet beim ersten Wiederholen einen Trace auf.
 

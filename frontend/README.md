@@ -8,7 +8,8 @@ Quick start (package manager is **pnpm**, provisioned via Corepack — never npm
 ```bash
 pnpm install
 pnpm start        # dev server on http://localhost:4200/
-pnpm test         # unit tests (Vitest)
+pnpm test         # unit tests (Vitest), single run
+pnpm test:watch   # unit tests in watch mode, re-run on file changes
 pnpm lint         # ESLint
 pnpm build        # production build
 ```

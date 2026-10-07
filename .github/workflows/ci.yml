@@ -46,7 +46,7 @@ jobs:
         run: pnpm format:check
 
       - name: Unit tests
-        run: pnpm test --watch=false
+        run: pnpm test
 
       - name: Production build
         run: pnpm build

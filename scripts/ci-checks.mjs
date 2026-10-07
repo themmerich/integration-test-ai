@@ -23,7 +23,7 @@ const fastSteps = [
 // Full checks add the slow stuff (unit tests, builds, backend). Not wired into
 // the Stop hook — run them manually via `node scripts/verify.mjs` or in CI.
 const fullOnlySteps = [
-  { cmd: 'pnpm test --watch=false', cwd: 'frontend' },
+  { cmd: 'pnpm test', cwd: 'frontend' },
   { cmd: 'pnpm build', cwd: 'frontend' },
   { cmd: gradlew, cwd: 'backend' },
 ];

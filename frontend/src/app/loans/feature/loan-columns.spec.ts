@@ -1,10 +1,9 @@
 import de from '../../../../public/i18n/de.json';
-import en from '../../../../public/i18n/en.json';
 import { Loan, LoanStatus } from '../domain/loan';
 import { LoanTranslations, loanColumns, toLoanRow } from './loan-columns';
 
-// Typed assignment: the build fails if a loan type or status label is missing in either language.
-const translations: Record<'en' | 'de', LoanTranslations> = { en: en.loans, de: de.loans };
+// Typed assignment: the build fails if a loan type or status label is missing.
+const translations: LoanTranslations = de.loans;
 
 const loan: Loan = {
   id: 1,
@@ -22,23 +21,22 @@ const loan: Loan = {
 
 describe('toLoanRow', () => {
   it('adds the translated type and status labels', () => {
-    expect(toLoanRow(loan, translations.en)).toMatchObject({ typeLabel: 'Mortgage', statusLabel: 'Active' });
-    expect(toLoanRow(loan, translations.de)).toMatchObject({ typeLabel: 'Baufinanzierung', statusLabel: 'Aktiv' });
+    expect(toLoanRow(loan, translations)).toMatchObject({ typeLabel: 'Baufinanzierung', statusLabel: 'Aktiv' });
   });
 
   it('maps every status to its tag severity', () => {
     const severities = (['requested', 'active', 'overdue', 'repaid'] as LoanStatus[]).map(
-      (status) => toLoanRow({ ...loan, status }, translations.en).statusSeverity,
+      (status) => toLoanRow({ ...loan, status }, translations).statusSeverity,
     );
 
     expect(severities).toEqual(['info', 'success', 'danger', 'secondary']);
   });
 
   it('keeps all loan fields unchanged', () => {
-    const { typeLabel, statusLabel, statusSeverity, ...loanFields } = toLoanRow(loan, translations.en);
+    const { typeLabel, statusLabel, statusSeverity, ...loanFields } = toLoanRow(loan, translations);
 
     expect(loanFields).toEqual(loan);
-    expect([typeLabel, statusLabel, statusSeverity]).toEqual(['Mortgage', 'Active', 'success']);
+    expect([typeLabel, statusLabel, statusSeverity]).toEqual(['Baufinanzierung', 'Aktiv', 'success']);
   });
 });
 

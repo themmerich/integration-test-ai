@@ -1,29 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 
+import de from '../../../../public/i18n/de.json';
 import { sampleLoans } from '../data-access/sample-loans';
 import { LoansPage } from './loans-page';
-
-const en = {
-  loans: {
-    title: 'Loans',
-    columns: {
-      loanNumber: 'Loan no.',
-      borrower: 'Borrower',
-      type: 'Type',
-      amount: 'Amount',
-      outstandingBalance: 'Outstanding',
-      interestRate: 'Interest rate',
-      termMonths: 'Term (months)',
-      monthlyPayment: 'Monthly payment',
-      disbursementDate: 'Disbursed on',
-      status: 'Status',
-    },
-    types: { mortgage: 'Mortgage', consumer: 'Consumer loan', car: 'Car loan', business: 'Business loan' },
-    statuses: { requested: 'Requested', active: 'Active', overdue: 'Overdue', repaid: 'Repaid' },
-    toolbar: { columns: 'Columns', selectedColumns: '{0} columns', search: 'Search loans', exportCsv: 'CSV' },
-  },
-};
 
 describe('LoansPage', () => {
   beforeEach(async () => {
@@ -31,8 +11,8 @@ describe('LoansPage', () => {
       imports: [
         LoansPage,
         TranslocoTestingModule.forRoot({
-          langs: { en },
-          translocoConfig: { availableLangs: ['en'], defaultLang: 'en' },
+          langs: { de },
+          translocoConfig: { availableLangs: ['de'], defaultLang: 'de' },
           preloadLangs: true,
         }),
       ],
@@ -49,7 +29,7 @@ describe('LoansPage', () => {
     const headers = render().querySelectorAll('thead th');
 
     expect(headers.length).toBe(10);
-    expect(headers[1].textContent).toContain('Borrower');
+    expect(headers[1].textContent).toContain('Kreditnehmer');
     expect(headers[1].querySelector('.p-datatable-column-resizer')).toBeTruthy();
   });
 
@@ -58,8 +38,8 @@ describe('LoansPage', () => {
 
     expect(element.querySelectorAll('tbody tr').length).toBe(10);
     expect(element.textContent).toContain(sampleLoans[0].borrower);
-    expect(element.textContent).toContain('Mortgage');
-    expect(element.textContent).toContain('Active');
+    expect(element.textContent).toContain('Baufinanzierung');
+    expect(element.textContent).toContain('Aktiv');
   });
 
   it('renders the toolbar with column toggle, search and CSV export', () => {

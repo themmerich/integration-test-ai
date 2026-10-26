@@ -91,7 +91,7 @@ import { LoanFilterForm } from './loan-filter-form';
             <p-table
               #loanTable
               dataKey="id"
-              exportFilename="loans"
+              exportFilename="kredite"
               columnResizeMode="expand"
               [value]="rows()"
               [totalRecords]="rows().length"

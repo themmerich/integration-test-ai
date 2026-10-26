@@ -87,6 +87,7 @@ const emptyModel: LoanFilterFormModel = {
             inputId="loan-filter-min-amount"
             mode="currency"
             currency="EUR"
+            locale="de-DE"
             [formField]="filterForm.minAmount"
             class="w-full"
           />
@@ -98,6 +99,7 @@ const emptyModel: LoanFilterFormModel = {
             inputId="loan-filter-max-amount"
             mode="currency"
             currency="EUR"
+            locale="de-DE"
             [formField]="filterForm.maxAmount"
             class="w-full"
           />

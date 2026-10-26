@@ -1,5 +1,4 @@
 import de from '../../public/i18n/de.json';
-import en from '../../public/i18n/en.json';
 
 /** Flattens nested translations into `path.to.key` → value pairs. */
 function flatten(translations: object, prefix = ''): Record<string, unknown> {
@@ -9,18 +8,10 @@ function flatten(translations: object, prefix = ''): Record<string, unknown> {
   }, {});
 }
 
-describe('translation files', () => {
-  const languages = { en: flatten(en), de: flatten(de) };
-
-  it('define the same keys in English and German', () => {
-    expect(Object.keys(languages.de).sort()).toEqual(Object.keys(languages.en).sort());
-  });
-
-  it('have no empty or non-text values', () => {
-    for (const [language, flat] of Object.entries(languages)) {
-      for (const [key, value] of Object.entries(flat)) {
-        expect(typeof value === 'string' && value.trim() !== '', `${language}: ${key}`).toBe(true);
-      }
+describe('translation file', () => {
+  it('has no empty or non-text values', () => {
+    for (const [key, value] of Object.entries(flatten(de))) {
+      expect(typeof value === 'string' && value.trim() !== '', key).toBe(true);
     }
   });
 });

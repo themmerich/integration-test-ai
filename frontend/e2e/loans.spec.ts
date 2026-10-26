@@ -6,39 +6,39 @@ test.describe('LoansPage e2e', () => {
   });
 
   test('shows the loan table as start page', async ({ page }) => {
-    await expect(page.getByText('Loans', { exact: true })).toBeVisible();
+    await expect(page.getByText('Kredite', { exact: true })).toBeVisible();
     await expect(page.getByRole('columnheader')).toHaveCount(10);
     await expect(page.getByRole('cell', { name: 'Anna Schmidt' })).toBeVisible();
   });
 
   test('sorts by borrower', async ({ page }) => {
-    await page.getByRole('columnheader', { name: 'Borrower' }).click();
+    await page.getByRole('columnheader', { name: 'Kreditnehmer' }).click();
 
     await expect(page.getByRole('row').nth(1)).toContainText('Anna Schmidt');
 
-    await page.getByRole('columnheader', { name: 'Borrower' }).click();
+    await page.getByRole('columnheader', { name: 'Kreditnehmer' }).click();
 
     await expect(page.getByRole('row').nth(1)).toContainText('Tim Richter');
   });
 
   test('filters rows with the global search', async ({ page }) => {
-    await page.getByRole('searchbox', { name: 'Search loans' }).fill('mortgage');
+    await page.getByRole('searchbox', { name: 'Kredite durchsuchen' }).fill('Baufinanzierung');
 
     await expect(page.locator('tbody tr')).toHaveCount(3);
     await expect(page.getByRole('cell', { name: 'Markus Weber' })).toBeHidden();
   });
 
   test('hides a column via the column toggle', async ({ page }) => {
-    await page.getByText('10 columns').click();
-    await page.getByRole('option', { name: 'Borrower' }).click();
+    await page.getByText('10 Spalten').click();
+    await page.getByRole('option', { name: 'Kreditnehmer' }).click();
     await page.keyboard.press('Escape');
 
     await expect(page.getByRole('columnheader')).toHaveCount(9);
-    await expect(page.getByRole('columnheader', { name: 'Borrower' })).toBeHidden();
+    await expect(page.getByRole('columnheader', { name: 'Kreditnehmer' })).toBeHidden();
   });
 
   test('resizes a column by dragging its border', async ({ page }) => {
-    const header = page.getByRole('columnheader', { name: 'Type' });
+    const header = page.getByRole('columnheader', { name: 'Kreditart' });
     const before = (await header.boundingBox())!;
 
     await page.mouse.move(before.x + before.width - 2, before.y + before.height / 2);
@@ -51,7 +51,7 @@ test.describe('LoansPage e2e', () => {
   });
 
   test('exports the filtered rows as CSV', async ({ page }) => {
-    await page.getByRole('searchbox', { name: 'Search loans' }).fill('mortgage');
+    await page.getByRole('searchbox', { name: 'Kredite durchsuchen' }).fill('Baufinanzierung');
     // The table applies the global filter after its filterDelay; export only once it is in effect.
     await expect(page.locator('tbody tr')).toHaveCount(3);
 
@@ -59,7 +59,7 @@ test.describe('LoansPage e2e', () => {
     await page.getByRole('button', { name: 'CSV' }).click();
     const download = await downloadPromise;
 
-    expect(download.suggestedFilename()).toBe('loans.csv');
+    expect(download.suggestedFilename()).toBe('kredite.csv');
     const stream = await download.createReadStream();
     const chunks: Buffer[] = [];
     for await (const chunk of stream) {
@@ -67,8 +67,8 @@ test.describe('LoansPage e2e', () => {
     }
     const lines = Buffer.concat(chunks).toString('utf8').trim().split('\n');
     expect(lines).toHaveLength(4);
-    expect(lines[0]).toContain('"Borrower"');
-    expect(lines[1]).toContain('"Mortgage"');
+    expect(lines[0]).toContain('"Kreditnehmer"');
+    expect(lines[1]).toContain('"Baufinanzierung"');
   });
 });
 
@@ -78,23 +78,23 @@ test.describe('Loan filter form e2e', () => {
   });
 
   test('restricts the table by borrower and status', async ({ page }) => {
-    await page.getByLabel('Borrower', { exact: true }).fill('a');
+    await page.getByLabel('Kreditnehmer', { exact: true }).fill('a');
     // The multiselect's combobox input is visually hidden; open it the keyboard way.
     await page.getByRole('combobox', { name: 'Status' }).focus();
     await page.keyboard.press('ArrowDown');
-    await page.getByRole('option', { name: 'Active' }).click();
+    await page.getByRole('option', { name: 'Aktiv' }).click();
     await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
     await expect(page.locator('tbody tr')).toHaveCount(6);
     await expect(page.getByRole('cell', { name: 'Mia Neumann' })).toBeVisible();
-    await expect(page.getByRole('cell', { name: 'Overdue' })).toBeHidden();
+    await expect(page.getByRole('cell', { name: 'Im Verzug' })).toBeHidden();
   });
 
   test('restricts the table by amount range', async ({ page }) => {
-    await page.getByLabel('Amount from').fill('100000');
-    await page.getByLabel('Amount to').fill('300000');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByLabel('Kreditbetrag von').fill('100000');
+    await page.getByLabel('Kreditbetrag bis').fill('300000');
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
     await expect(page.locator('tbody tr')).toHaveCount(3);
     await expect(page.getByRole('cell', { name: 'Elena Koch' })).toBeVisible();
@@ -102,30 +102,30 @@ test.describe('Loan filter form e2e', () => {
 
   test('restricts the table by disbursement period', async ({ page }) => {
     // The date picker parses keystrokes, so type the range instead of fill()ing it in one go.
-    await page.getByLabel('Disbursement period').pressSequentially('01/01/2024 - 06/30/2024');
+    await page.getByLabel('Auszahlungszeitraum').pressSequentially('01.01.2024 - 30.06.2024');
     await page.keyboard.press('Escape');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
     await expect(page.locator('tbody tr')).toHaveCount(4);
     await expect(page.getByRole('cell', { name: 'Laura Fischer' })).toBeHidden();
   });
 
   test('resets the form and shows all loans again', async ({ page }) => {
-    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByLabel('Kreditnehmer', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Suchen' }).click();
     await expect(page.locator('tbody tr')).toHaveCount(1);
 
-    await page.getByRole('button', { name: 'Reset' }).click();
+    await page.getByRole('button', { name: 'Zurücksetzen' }).click();
 
-    await expect(page.getByLabel('Borrower', { exact: true })).toHaveValue('');
+    await expect(page.getByLabel('Kreditnehmer', { exact: true })).toHaveValue('');
     await expect(page.locator('tbody tr')).toHaveCount(10);
   });
 
   test('shows only as many pages as there are results', async ({ page }) => {
     await expect(page.getByRole('button', { name: '2', exact: true })).toBeVisible();
 
-    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByLabel('Kreditnehmer', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
     await expect(page.locator('tbody tr')).toHaveCount(1);
     await expect(page.getByRole('button', { name: '1', exact: true })).toBeVisible();
@@ -136,23 +136,23 @@ test.describe('Loan filter form e2e', () => {
     await page.getByRole('button', { name: '2', exact: true }).click();
     await expect(page.locator('tbody tr')).toHaveCount(2);
 
-    await page.getByLabel('Borrower', { exact: true }).fill('Weber');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByLabel('Kreditnehmer', { exact: true }).fill('Weber');
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
     await expect(page.getByRole('cell', { name: 'Markus Weber' })).toBeVisible();
   });
 
   test('shows an empty message when the form finds nothing', async ({ page }) => {
-    await page.getByLabel('Borrower', { exact: true }).fill('nobody');
-    await page.getByRole('button', { name: 'Search' }).click();
+    await page.getByLabel('Kreditnehmer', { exact: true }).fill('nobody');
+    await page.getByRole('button', { name: 'Suchen' }).click();
 
-    await expect(page.getByRole('cell', { name: 'No loans found.' })).toBeVisible();
+    await expect(page.getByRole('cell', { name: 'Keine Kredite gefunden.' })).toBeVisible();
     await expect(page.getByRole('button', { name: '1', exact: true })).toBeHidden();
   });
 
   test('shows an empty message when the global search finds nothing', async ({ page }) => {
-    await page.getByRole('searchbox', { name: 'Search loans' }).fill('nobody');
+    await page.getByRole('searchbox', { name: 'Kredite durchsuchen' }).fill('nobody');
 
-    await expect(page.getByRole('cell', { name: 'No loans found.' })).toBeVisible();
+    await expect(page.getByRole('cell', { name: 'Keine Kredite gefunden.' })).toBeVisible();
   });
 });

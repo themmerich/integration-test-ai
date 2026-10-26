@@ -32,7 +32,7 @@ Im Umfang:
   Zurücksetzen
 - Toolbar: Spaltenauswahl, globale Suche, CSV-Export
 - Tabelle: zehn Spalten, Formatierung, Sortierung, Spaltenbreite, Paginator, Leermeldung
-- Übersetzungen Englisch und Deutsch
+- Deutsche Oberflächentexte und deutsche Zahlen- und Datumsformate
 - Barrierefreiheit und Tastaturbedienung der Seite
 
 Nicht im Umfang:
@@ -108,7 +108,7 @@ zweimal und zeichnet beim ersten Wiederholen einen Trace auf.
 - Integrationstests nutzen Fake-Timer (`vi.useFakeTimers()`), um die 300 ms `filterDelay` der globalen
   Suche zu überspringen.
 - Integrationstests nutzen `TranslocoTestingModule` mit den echten Übersetzungsdateien
-  (`public/i18n/en.json` und `de.json` importieren), damit fehlende Schlüssel auffallen.
+  (`public/i18n/de.json` importieren), damit fehlende Schlüssel auffallen.
 - Gemockt wird nur, was außerhalb der Seite liegt. Heute ist das nur `URL.createObjectURL` für den
   CSV-Export in jsdom.
 
@@ -135,38 +135,38 @@ berechnet. Ändern sich die Daten, müssen die Werte hier und in den Tests angep
 
 Erwartete Ergebnisse, auf die sich die Testfälle beziehen:
 
-| Kürzel | Eingabe                                             | Treffer | Kreditnehmer                                                                            |
-| ------ | --------------------------------------------------- | ------- | --------------------------------------------------------------------------------------- |
-| R1     | Kreditnehmer „a“, Status Active                     | 6       | Anna Schmidt, Markus Weber, Sophie Wagner, Hofmann IT Services, Elena Koch, Mia Neumann |
-| R2     | Kreditnehmer „Weber“                                | 1       | Markus Weber                                                                            |
-| R3     | Betrag von 100.000 bis 300.000                      | 3       | Bäckerei Müller GmbH, Elena Koch, Klein & Partner KG                                    |
-| R4     | Betrag von 320.000                                  | 2       | Anna Schmidt, Jonas Becker                                                              |
-| R5     | Zeitraum 2024-01-01 bis 2024-06-30                  | 4       | Anna Schmidt, Markus Weber, Bäckerei Müller GmbH, Sophie Wagner                         |
-| R6     | Zeitraum nur 2024-02-15                             | 1       | Anna Schmidt                                                                            |
-| R7     | Kreditart Car loan und Consumer loan, Status Active | 3       | Markus Weber, Sophie Wagner, Mia Neumann                                                |
-| R8     | globale Suche „mortgage“ (Englisch)                 | 3       | Anna Schmidt, Jonas Becker, Elena Koch                                                  |
-| R9     | globale Suche „Baufinanzierung“ (Deutsch)           | 3       | wie R8                                                                                  |
-| R10    | Formular Status Active, dann globale Suche „car“    | 2       | Markus Weber, Mia Neumann                                                               |
-| R11    | Kreditnehmer „nobody“ oder globale Suche „nobody“   | 0       | –                                                                                       |
-| R12    | ohne Filter, Seite 2                                | 2       | Klein & Partner KG, Mia Neumann                                                         |
+| Kürzel | Eingabe                                            | Treffer | Kreditnehmer                                                                            |
+| ------ | -------------------------------------------------- | ------- | --------------------------------------------------------------------------------------- |
+| R1     | Kreditnehmer „a“, Status Aktiv                     | 6       | Anna Schmidt, Markus Weber, Sophie Wagner, Hofmann IT Services, Elena Koch, Mia Neumann |
+| R2     | Kreditnehmer „Weber“                               | 1       | Markus Weber                                                                            |
+| R3     | Betrag von 100.000 bis 300.000                     | 3       | Bäckerei Müller GmbH, Elena Koch, Klein & Partner KG                                    |
+| R4     | Betrag von 320.000                                 | 2       | Anna Schmidt, Jonas Becker                                                              |
+| R5     | Zeitraum 2024-01-01 bis 2024-06-30                 | 4       | Anna Schmidt, Markus Weber, Bäckerei Müller GmbH, Sophie Wagner                         |
+| R6     | Zeitraum nur 2024-02-15                            | 1       | Anna Schmidt                                                                            |
+| R7     | Kreditart Autokredit und Ratenkredit, Status Aktiv | 3       | Markus Weber, Sophie Wagner, Mia Neumann                                                |
+| R8     | globale Suche „Baufinanzierung“                    | 3       | Anna Schmidt, Jonas Becker, Elena Koch                                                  |
+| R9     | entfällt (früher englische Suche)                  | –       | –                                                                                       |
+| R10    | Formular Status Aktiv, dann globale Suche „Auto“   | 2       | Markus Weber, Mia Neumann                                                               |
+| R11    | Kreditnehmer „nobody“ oder globale Suche „nobody“  | 0       | –                                                                                       |
+| R12    | ohne Filter, Seite 2                               | 2       | Klein & Partner KG, Mia Neumann                                                         |
 
 Erwartete erste Zeile beim Sortieren (aufsteigend / absteigend):
 
-| Spalte               | Aufsteigend                     | Absteigend                |
-| -------------------- | ------------------------------- | ------------------------- |
-| Kreditnehmer         | Anna Schmidt                    | Tim Richter               |
-| Kreditbetrag         | Tim Richter (5.000)             | Jonas Becker (450.000)    |
-| Zinssatz             | Jonas Becker (3,42 %)           | Tim Richter (7,99 %)      |
-| Laufzeit             | Tim Richter (24)                | Jonas Becker (360)        |
-| Ausgezahlt am        | Klein & Partner KG (2019-11-30) | Tim Richter (2025-02-14)  |
-| Kreditart (Englisch) | eine Zeile mit „Business loan“  | eine Zeile mit „Mortgage“ |
+| Spalte        | Aufsteigend                     | Absteigend                   |
+| ------------- | ------------------------------- | ---------------------------- |
+| Kreditnehmer  | Anna Schmidt                    | Tim Richter                  |
+| Kreditbetrag  | Tim Richter (5.000)             | Jonas Becker (450.000)       |
+| Zinssatz      | Jonas Becker (3,42 %)           | Tim Richter (7,99 %)         |
+| Laufzeit      | Tim Richter (24)                | Jonas Becker (360)           |
+| Ausgezahlt am | Klein & Partner KG (2019-11-30) | Tim Richter (2025-02-14)     |
+| Kreditart     | eine Zeile mit „Autokredit“     | eine Zeile mit „Ratenkredit“ |
 
 ## 5 Ausgangslage und Zielbild
 
 | Ebene       | Heute                                                          | Ziel                        |
 | ----------- | -------------------------------------------------------------- | --------------------------- |
-| Unit        | U1–U11 umgesetzt: 19 Tests in 4 Dateien, dazu 2 Tests zu `App` | 11 Fälle                    |
-| Integration | 5 Tests, die nur prüfen, ob etwas gerendert wird               | 20 Fälle, breiteste Schicht |
+| Unit        | U1–U11 umgesetzt: 18 Tests in 4 Dateien, dazu 2 Tests zu `App` | 11 Fälle                    |
+| Integration | 5 Tests, die nur prüfen, ob etwas gerendert wird               | 19 Fälle, breiteste Schicht |
 | E2E         | 17 Tests, davon 10 mit fachlichen Varianten                    | 9 Fälle                     |
 
 Heute steckt fast das ganze Verhalten der Seite in E2E-Tests. Das macht die Suite langsam und
@@ -251,12 +251,12 @@ Datei, wenn nicht anders angegeben: `frontend/src/app/loans/domain/loan-filter.s
 
 - Datei: `frontend/src/app/loans/feature/loan-columns.spec.ts`
 - Status: vorhanden · Priorität: hoch
-- Schritte: einen Kredit mit den echten Übersetzungen aus `en.json` und `de.json` aufbereiten, dann
-  einmal für jeden Status.
-- Erwartet: `typeLabel` und `statusLabel` kommen aus der jeweiligen Übersetzung. Die Tag-Farbe ist
-  `info` für Requested, `success` für Active, `danger` für Overdue und `secondary` für Repaid. Die
-  übrigen Felder bleiben unverändert. Die Übersetzungen werden dem Typ `LoanTranslations` zugewiesen;
-  fehlt in einer Sprache ein Label für eine Kreditart oder einen Status, bricht schon der Build ab.
+- Schritte: einen Kredit mit den echten Übersetzungen aus `de.json` aufbereiten, dann einmal für jeden
+  Status.
+- Erwartet: `typeLabel` und `statusLabel` kommen aus der Übersetzung. Die Tag-Farbe ist `info` für
+  Beantragt, `success` für Aktiv, `danger` für Im Verzug und `secondary` für Getilgt. Die übrigen
+  Felder bleiben unverändert. Die Übersetzungen werden dem Typ `LoanTranslations` zugewiesen; fehlt ein
+  Label für eine Kreditart oder einen Status, bricht schon der Build ab.
 
 ### U9 Spaltendefinition
 
@@ -280,10 +280,9 @@ Datei, wenn nicht anders angegeben: `frontend/src/app/loans/domain/loan-filter.s
 
 - Datei: `frontend/src/app/i18n.spec.ts`
 - Status: vorhanden · Priorität: mittel
-- Schritte: `public/i18n/en.json` und `de.json` importieren, verschachtelte Schlüssel flach machen und
-  vergleichen.
-- Erwartet: identische Schlüssel in beiden Dateien, jeder Wert ist ein nicht leerer Text. Dass es für
-  jede Kreditart und jeden Status ein Label gibt, prüft der Compiler über U8.
+- Schritte: `public/i18n/de.json` importieren und verschachtelte Schlüssel flach machen.
+- Erwartet: Jeder Wert ist ein nicht leerer Text. Dass es für jede Kreditart und jeden Status ein Label
+  gibt, prüft der Compiler über U8.
 
 ## 8 Integrationstests
 
@@ -298,7 +297,7 @@ Datei: `frontend/src/app/loans/feature/loan-filter-form.spec.ts` (neu)
 #### I1 Suchen gibt den Filter aus
 
 - Status: neu · Priorität: hoch
-- Schritte: Kreditnehmer „Weber“ eintippen, Betrag von 10.000 eingeben, „Search“ klicken. Danach
+- Schritte: Kreditnehmer „Weber“ eintippen, Betrag von 10.000 eingeben, „Suchen“ klicken. Danach
   Kreditnehmer ändern und im Textfeld Enter drücken.
 - Erwartet: `filterChange` gibt beim Klick `{ borrower: 'Weber', minAmount: 10000, … }` mit sonst
   leeren Feldern aus, bei Enter erneut mit dem neuen Namen. Vor dem Klick wird nichts ausgegeben.
@@ -315,18 +314,16 @@ Datei: `frontend/src/app/loans/feature/loan-filter-form.spec.ts` (neu)
 #### I3 Zurücksetzen
 
 - Status: verschieben (aus E2E „resets the form and shows all loans again“) · Priorität: hoch
-- Schritte: alle Felder füllen, „Reset“ klicken.
-- Erwartet: alle Felder sind leer, die Mehrfachauswahlen zeigen „Any“, `filterChange` gibt
+- Schritte: alle Felder füllen, „Zurücksetzen“ klicken.
+- Erwartet: alle Felder sind leer, die Mehrfachauswahlen zeigen „Alle“, `filterChange` gibt
   `emptyLoanFilter` aus.
 
 #### I4 Übersetzte Optionen
 
 - Status: neu · Priorität: mittel
-- Schritte: Optionen der Mehrfachauswahl Kreditart und Status auslesen, dann Sprache auf Deutsch
-  stellen.
-- Erwartet: Englisch: Mortgage, Consumer loan, Car loan, Business loan sowie Requested, Active,
-  Overdue, Repaid. Deutsch: Baufinanzierung, Ratenkredit, Autokredit, Firmenkredit sowie Beantragt,
-  Aktiv, Im Verzug, Getilgt. Feldbeschriftungen wechseln mit.
+- Schritte: Optionen der Mehrfachauswahl Kreditart und Status auslesen.
+- Erwartet: Baufinanzierung, Ratenkredit, Autokredit, Firmenkredit sowie Beantragt, Aktiv, Im Verzug,
+  Getilgt.
 
 ### 8.2 Kreditseite `LoansPage`
 
@@ -340,14 +337,14 @@ Datei: `frontend/src/app/loans/feature/loans-page.spec.ts`
 #### I6 Erste Seite
 
 - Status: vorhanden · Priorität: hoch
-- Erwartet: zehn Zeilen, erste Zeile Anna Schmidt, Kreditart „Mortgage“, Status „Active“.
+- Erwartet: zehn Zeilen, erste Zeile Anna Schmidt, Kreditart „Baufinanzierung“, Status „Aktiv“.
 
 #### I7 Formularsuche nach Kreditnehmer und Status
 
 - Status: verschieben (aus E2E „restricts the table by borrower and status“) · Priorität: hoch
-- Schritte: Kreditnehmer „a“, Status Active, suchen.
+- Schritte: Kreditnehmer „a“, Status Aktiv, suchen.
 - Erwartet: Ergebnis R1, also sechs Zeilen inklusive Mia Neumann, die vorher auf Seite 2 stand. Kein
-  Kredit mit Status Overdue.
+  Kredit mit Status Im Verzug.
 
 #### I8 Betrags- und Zeitraumfilter
 
@@ -370,28 +367,28 @@ Datei: `frontend/src/app/loans/feature/loans-page.spec.ts`
 - Status: verschieben (aus beiden E2E-Tests zur Leermeldung), Spaltenbreite neu · Priorität: hoch
 - Schritte: R11 über das Formular, danach über die globale Suche. Zusätzlich zwei Spalten ausblenden
   und erneut R11 auslösen.
-- Erwartet: genau eine Zeile mit „No loans found.“, auf Deutsch „Keine Kredite gefunden.“. Die Zelle
+- Erwartet: genau eine Zeile mit „Keine Kredite gefunden.“. Die Zelle
   hat `colspan` gleich der Zahl sichtbarer Spalten (10, nach dem Ausblenden 8).
 
 #### I11 Globale Suche
 
-- Status: verschieben (aus E2E „filters rows with the global search“), Deutsch neu · Priorität: hoch
-- Schritte: „mortgage“ eingeben, Fake-Timer um 300 ms vorstellen. Dann Sprache Deutsch, Suche
-  leeren, „Baufinanzierung“ eingeben. Dann „KR-2024-0007“ eingeben.
-- Erwartet: R8, R9, danach nur Hofmann IT Services. Vor Ablauf der 300 ms ändert sich nichts.
+- Status: verschieben (aus E2E „filters rows with the global search“) · Priorität: hoch
+- Schritte: „Baufinanzierung“ eingeben, Fake-Timer um 300 ms vorstellen. Dann Suche leeren und
+  „KR-2024-0007“ eingeben.
+- Erwartet: R8, danach nur Hofmann IT Services. Vor Ablauf der 300 ms ändert sich nichts.
 
 #### I12 Formular und globale Suche zusammen
 
 - Status: neu · Priorität: hoch
-- Schritte: Formular Status Active suchen, dann global „car“. Danach Formular zurücksetzen.
-- Erwartet: R10 mit zwei Zeilen und einer Seite. Nach dem Zurücksetzen gilt nur noch „car“: drei
+- Schritte: Formular Status Aktiv suchen, dann global „Auto“. Danach Formular zurücksetzen.
+- Erwartet: R10 mit zwei Zeilen und einer Seite. Nach dem Zurücksetzen gilt nur noch „Auto“: drei
   Zeilen (Markus Weber, Lukas Schulz, Mia Neumann), die Suchbox behält ihren Text.
 
 #### I13 Spaltenauswahl
 
 - Status: verschieben (aus E2E „hides a column via the column toggle“) · Priorität: mittel
 - Schritte: Kreditnehmer und Restschuld abwählen, dann Kreditnehmer wieder anwählen.
-- Erwartet: Anzeige „8 columns“, acht Spaltenköpfe und acht Zellen je Zeile, Reihenfolge der übrigen
+- Erwartet: Anzeige „8 Spalten“, acht Spaltenköpfe und acht Zellen je Zeile, Reihenfolge der übrigen
   unverändert. Nach dem Wiederanwählen steht Kreditnehmer wieder an Position 2, nicht am Ende.
 
 #### I14 Sortierung
@@ -405,25 +402,22 @@ Datei: `frontend/src/app/loans/feature/loans-page.spec.ts`
 
 - Status: neu · Priorität: mittel
 - Schritte: erste Zeile auslesen.
-- Erwartet: Kredit-Nr. `KR-2024-0001` in Festbreitenschrift, Betrag `€320,000.00`, Restschuld
-  `€287,450.00`, Zins `3.65%`, Laufzeit `300`, Rate `€1,624.80`, Datum `Feb 15, 2024`, Status als Tag
-  „Active“ mit Farbe `success`. Zahlenspalten sind rechtsbündig.
+- Erwartet: Kredit-Nr. `KR-2024-0001` in Festbreitenschrift, Betrag `320.000,00 €`, Restschuld
+  `287.450,00 €`, Zins `3,65 %`, Laufzeit `300`, Rate `1.624,80 €`, Datum `15.02.2024`, Status als Tag
+  „Aktiv“ mit Farbe `success`. Zahlenspalten sind rechtsbündig.
 
 #### I16 CSV-Inhalt
 
 - Status: neu auf dieser Ebene (Download selbst bleibt in E2) · Priorität: hoch
 - Schritte: `URL.createObjectURL` stubben. R8 einstellen, Spalte Restschuld ausblenden, „CSV“ klicken,
   übergebenen Blob als Text lesen.
-- Erwartet: vier Zeilen (Kopf und drei Kredite), neun Spalten ohne Restschuld, Spaltenköpfe in der
-  aktiven Sprache, Kreditart als übersetzter Text. Zahlen und Datum stehen unformatiert drin
+- Erwartet: vier Zeilen (Kopf und drei Kredite), neun Spalten ohne Restschuld, Spaltenköpfe und
+  Kreditart als deutscher Text. Zahlen und Datum stehen unformatiert drin
   (`0.0365`, `2024-02-15`).
 
 #### I17 Sprachwechsel zur Laufzeit
 
-- Status: neu · Priorität: mittel
-- Schritte: Seite auf Englisch rendern, über `TranslocoService.setActiveLang('de')` umschalten.
-- Erwartet: Titel „Kredite“, Spaltenköpfe deutsch, Kreditart und Status deutsch, Toolbar und Formular
-  deutsch. Ein gesetzter Filter bleibt bestehen.
+- Status: entfällt · Die App ist nur noch deutsch, es gibt keinen Sprachwechsel.
 
 ### 8.3 Shell und Routing
 
@@ -431,7 +425,7 @@ Datei: `frontend/src/app/loans/feature/loans-page.spec.ts`
 
 - Datei: `frontend/src/app/layout/feature/app-layout.spec.ts`
 - Status: vorhanden · Priorität: mittel
-- Erwartet: Gruppe „Lending“ mit genau einem Link „Loan overview“ auf `/`.
+- Erwartet: Gruppe „Kreditgeschäft“ mit genau einem Link „Kreditübersicht“ auf `/`.
 
 #### I19 Startseite in der Shell
 
@@ -445,7 +439,7 @@ Datei: `frontend/src/app/loans/feature/loans-page.spec.ts`
 - Datei: `frontend/src/app/app.routes.spec.ts` (neu)
 - Status: verschieben (aus E2E „marks the current page in the sidebar“) · Priorität: mittel
 - Schritte: wie I19.
-- Erwartet: Der Link „Loan overview“ hat `aria-current="page"` und die Klasse für den aktiven
+- Erwartet: Der Link „Kreditübersicht“ hat `aria-current="page"` und die Klasse für den aktiven
   Zustand.
 
 ## 9 E2E-Tests
@@ -463,9 +457,9 @@ CI gegen den Production-Build.
 ### E2 Hauptablauf
 
 - Status: umbauen (ersetzt mehrere Einzeltests) · Priorität: hoch
-- Schritte: im Formular Status Active suchen, global „car“ eingeben, auf die erwartete Trefferzahl
+- Schritte: im Formular Status Aktiv suchen, global „Auto“ eingeben, auf die erwartete Trefferzahl
   warten, nach Kreditnehmer sortieren, „CSV“ klicken.
-- Erwartet: zwei Zeilen (R10), erste Zeile Markus Weber. Download `loans.csv` mit Kopfzeile und zwei
+- Erwartet: zwei Zeilen (R10), erste Zeile Markus Weber. Download `kredite.csv` mit Kopfzeile und zwei
   Datenzeilen in der angezeigten Reihenfolge.
 
 ### E3 Spaltenbreite ziehen
@@ -478,16 +472,16 @@ CI gegen den Production-Build.
 ### E4 Datumsbereich wählen
 
 - Status: Tippen vorhanden, Kalender neu · Priorität: mittel
-- Schritte: einmal den Zeitraum per Tastatur `01/01/2024 - 06/30/2024` tippen und suchen. Einmal den
+- Schritte: einmal den Zeitraum per Tastatur `01.01.2024 - 30.06.2024` tippen und suchen. Einmal den
   Kalender öffnen, über die Monats- und Jahresauswahl im Kalenderkopf zu Februar 2024 wechseln, den
   1. und den 29. anklicken und suchen.
 - Erwartet: beim Tippen vier Zeilen (R5). Bei der Kalenderauswahl eine Zeile, Anna Schmidt
-  (ausgezahlt 2024-02-15). Das Feld zeigt danach `02/01/2024 - 02/29/2024`.
+  (ausgezahlt 2024-02-15). Das Feld zeigt danach `01.02.2024 - 29.02.2024`.
 
 ### E5 Mehrfachauswahl bedienen
 
 - Status: teils vorhanden · Priorität: mittel
-- Schritte: Status-Auswahl mit der Maus öffnen, Active anklicken, mit Escape schließen. Danach
+- Schritte: Status-Auswahl mit der Maus öffnen, Aktiv anklicken, mit Escape schließen. Danach
   Kreditart per Tastatur öffnen (Fokus, Pfeil nach unten), Option mit Leertaste wählen, Escape.
 - Erwartet: Auswahl wird übernommen und im Feld angezeigt, Panel schließt, Fokus bleibt im Feld.
 
@@ -502,7 +496,7 @@ CI gegen den Production-Build.
 ### E7 Menügruppe einklappen
 
 - Status: vorhanden · Priorität: niedrig
-- Erwartet: Klick auf „Lending“ blendet „Loan overview“ aus, ein zweiter Klick wieder ein.
+- Erwartet: Klick auf „Kreditgeschäft“ blendet „Kreditübersicht“ aus, ein zweiter Klick wieder ein.
 
 ### E8 Mobile Ansicht
 
@@ -542,7 +536,7 @@ sidebar“.
 | Formatierung                  | U8      | I15         | –          |
 | CSV-Export                    | –       | I16         | E2         |
 | Spaltenbreite                 | –       | I5          | E3         |
-| Übersetzungen                 | U8, U11 | I4, I17     | –          |
+| Übersetzungen                 | U8, U11 | I4          | –          |
 | Shell, Menü, Routing          | –       | I18–I20     | E1, E7, E8 |
 | Tastatur und Barrierefreiheit | –       | –           | E5, E6, E9 |
 | Beispieldaten                 | U10     | –           | –          |
@@ -550,7 +544,7 @@ sidebar“.
 ## 11 Umsetzungsreihenfolge
 
 1. Unit-Tests U6–U11 ergänzen. Sie sind schnell geschrieben und decken Daten und Übersetzungen ab.
-2. Integrationstests für das Formular (I1–I4) und die Seite (I7–I17) schreiben. Dabei klären, wie
+2. Integrationstests für das Formular (I1–I4) und die Seite (I7–I16) schreiben. Dabei klären, wie
    sich die PrimeNG-Overlays in jsdom bedienen lassen (siehe Risiken).
 3. Routing-Tests I19 und I20.
 4. E2E umbauen: E2 als Hauptablauf, E1 erweitern, abgelöste Einzeltests löschen. Erst löschen, wenn
@@ -572,12 +566,10 @@ Der Plan gilt als umgesetzt, wenn:
 
 ## 13 Risiken und offene Entscheidungen
 
-| Thema                                   | Auswirkung                                                                                                    | Umgang                                                                                                                           |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| PrimeNG-Overlays in jsdom               | Mehrfachauswahl und Kalender öffnen ihr Panel per Overlay. Ob das in jsdom zuverlässig klappt, ist ungeprüft. | Erst ausprobieren. Klappt es nicht, Werte in Integrationstests über eine Testhilfe setzen und die Bedienung nur in E4/E5 prüfen. |
-| PrimeNG 22 ist ein Release Candidate    | Zwei Umgehungen im Code (`$any` am Datumsfeld, `totalRecords`). Ein Update kann Verhalten ändern.             | I2, I9 und I15 schlagen dann an. Nach einem stabilen Release prüfen, ob die Umgehungen entfallen können.                         |
-| Unbekannte URLs                         | Heute leere Seite, weil keine Wildcard-Route existiert.                                                       | Entscheidung offen. Mit Weiterleitung auf `/` kommt ein Fall in 8.3 dazu.                                                        |
-| Kein Sprachumschalter in der Oberfläche | Deutsch ist nur über den Service erreichbar.                                                                  | I4 und I17 schalten über `TranslocoService`. Mit Umschalter kommt ein E2E-Fall dazu.                                             |
-| Gemischte Zahlen- und Datumsformate     | Tabelle englisch, Betragsfeld nach Browsersprache, Datumsfeld `mm/dd/yyyy`.                                   | Erwartete Werte in I15 und E4 hängen davon ab. Bei einer Umstellung auf deutsche Formate anpassen.                               |
-| Zeitzone                                | Die Datumsumrechnung ist nur östlich von UTC fehleranfällig.                                                  | I2 mit fester Zeitzone laufen lassen.                                                                                            |
-| Backend ohne API                        | Sobald Daten per HTTP kommen, ändern sich Testdaten und Mocks.                                                | Dann Repository-, Controller- und HTTP-Tests ergänzen und diesen Plan überarbeiten.                                              |
+| Thema                                | Auswirkung                                                                                                    | Umgang                                                                                                                           |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| PrimeNG-Overlays in jsdom            | Mehrfachauswahl und Kalender öffnen ihr Panel per Overlay. Ob das in jsdom zuverlässig klappt, ist ungeprüft. | Erst ausprobieren. Klappt es nicht, Werte in Integrationstests über eine Testhilfe setzen und die Bedienung nur in E4/E5 prüfen. |
+| PrimeNG 22 ist ein Release Candidate | Zwei Umgehungen im Code (`$any` am Datumsfeld, `totalRecords`). Ein Update kann Verhalten ändern.             | I2, I9 und I15 schlagen dann an. Nach einem stabilen Release prüfen, ob die Umgehungen entfallen können.                         |
+| Unbekannte URLs                      | Heute leere Seite, weil keine Wildcard-Route existiert.                                                       | Entscheidung offen. Mit Weiterleitung auf `/` kommt ein Fall in 8.3 dazu.                                                        |
+| Zeitzone                             | Die Datumsumrechnung ist nur östlich von UTC fehleranfällig.                                                  | I2 mit fester Zeitzone laufen lassen.                                                                                            |
+| Backend ohne API                     | Sobald Daten per HTTP kommen, ändern sich Testdaten und Mocks.                                                | Dann Repository-, Controller- und HTTP-Tests ergänzen und diesen Plan überarbeiten.                                              |

@@ -2,17 +2,8 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { TranslocoTestingModule } from '@jsverse/transloco';
 
+import de from '../../../../public/i18n/de.json';
 import { AppLayout } from './app-layout';
-
-const en = {
-  layout: {
-    appName: 'Integration Test AI',
-    mainNavigation: 'Main navigation',
-    toggleMenu: 'Toggle menu',
-    user: 'Demo user',
-    nav: { lending: 'Lending', loanOverview: 'Loan overview' },
-  },
-};
 
 describe('AppLayout', () => {
   beforeEach(async () => {
@@ -20,8 +11,8 @@ describe('AppLayout', () => {
       imports: [
         AppLayout,
         TranslocoTestingModule.forRoot({
-          langs: { en },
-          translocoConfig: { availableLangs: ['en'], defaultLang: 'en' },
+          langs: { de },
+          translocoConfig: { availableLangs: ['de'], defaultLang: 'de' },
           preloadLangs: true,
         }),
       ],
@@ -39,8 +30,8 @@ describe('AppLayout', () => {
     const element = render();
     const links = Array.from(element.querySelectorAll('nav a'));
 
-    expect(element.textContent).toContain('Lending');
-    expect(links.map((link) => [link.textContent?.trim(), link.getAttribute('href')])).toEqual([['Loan overview', '/']]);
+    expect(element.textContent).toContain('Kreditgeschäft');
+    expect(links.map((link) => [link.textContent?.trim(), link.getAttribute('href')])).toEqual([['Kreditübersicht', '/']]);
   });
 
   it('renders the page content area with a router outlet', () => {

@@ -8,6 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --watch=false",
+    "test:reporters": "ng test --watch=false --reporters verbose",
     "test:watch": "ng test --watch=true",
     "test:coverage": "ng test --watch=false --coverage",
     "e2e": "playwright test",
